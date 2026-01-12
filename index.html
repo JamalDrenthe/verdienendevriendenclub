@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verdienende Vrienden Club</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+      /* --- THEME DEFINITIONS --- */
+
+      /* 1. DEFAULT (Professional / White / Blue) */
+      :root {
+        --font-main: 'Inter', sans-serif;
+        
+        --color-bg-base: #f8fafc;       /* slate-50 */
+        --color-bg-card: #ffffff;       /* white */
+        --color-bg-sub: #f1f5f9;        /* slate-100 */
+        
+        --color-text-main: #0f172a;     /* slate-900 */
+        --color-text-strong: #1e293b;   /* slate-800 */
+        --color-text-body: #334155;     /* slate-700 */
+        --color-text-muted: #64748b;    /* slate-500 */
+        --color-text-faint: #94a3b8;    /* slate-400 */
+        
+        --color-border-light: #e2e8f0;  /* slate-200 */
+        --color-border-med: #cbd5e1;    /* slate-300 */
+        
+        --color-brand-50: #f0f9ff;
+        --color-brand-100: #e0f2fe;
+        --color-brand-200: #bae6fd;
+        --color-brand-300: #7dd3fc;
+        --color-brand-500: #0ea5e9;
+        --color-brand-600: #0284c7;
+        --color-brand-700: #0369a1;
+        --color-brand-900: #0c4a6e;
+        
+        --color-gold-400: #facc15;
+        --color-gold-500: #eab308;
+        --color-gold-600: #ca8a04;
+
+        --shadow-color: 226 232 240; /* slate-200ish */
+      }
+
+      /* 2. MATRIX (Neon Green / Black / Dark) */
+      [data-theme="matrix"] {
+        --font-main: 'JetBrains Mono', monospace;
+
+        --color-bg-base: #000000;
+        --color-bg-card: #0a0a0a;
+        --color-bg-sub: #111111;
+
+        --color-text-main: #4ade80;     /* green-400 */
+        --color-text-strong: #22c55e;   /* green-500 */
+        --color-text-body: #86efac;     /* green-300 */
+        --color-text-muted: #16a34a;    /* green-600 (darker for muted) */
+        --color-text-faint: #15803d;    /* green-700 */
+
+        --color-border-light: #14532d;  /* green-900 */
+        --color-border-med: #166534;    /* green-800 */
+
+        /* Re-map Brand to Matrix Green */
+        --color-brand-50: #052e16;      /* Very dark green bg */
+        --color-brand-100: #14532d;
+        --color-brand-200: #166534;
+        --color-brand-300: #22c55e;
+        --color-brand-500: #4ade80;     /* Neon */
+        --color-brand-600: #22c55e;     /* Solid Neon */
+        --color-brand-700: #16a34a;
+        --color-brand-900: #14532d;
+
+        /* Re-map Gold to Bright White/Green for contrast */
+        --color-gold-400: #ffffff;
+        --color-gold-500: #f0fdf4;
+        --color-gold-600: #dcfce7;
+        
+        --shadow-color: 20 83 45; /* green-900ish */
+      }
+
+      /* 3. ROSE GOLD (Glassmorphism / Luxury) */
+      [data-theme="rose"] {
+        --font-main: 'Inter', sans-serif;
+
+        /* Transparent backgrounds for glass effect */
+        --color-bg-base: rgba(255, 255, 255, 0.4); /* Semi-transparent base */
+        --color-bg-card: rgba(255, 255, 255, 0.65); /* Glassy card */
+        --color-bg-sub: rgba(255, 255, 255, 0.3);
+
+        /* Rich Text Colors */
+        --color-text-main: #4a0418;     /* Deep Burgundy/Brown */
+        --color-text-strong: #881337;   /* Rose 900 */
+        --color-text-body: #9f1239;     /* Rose 800 */
+        --color-text-muted: #be123c;    /* Rose 700 */
+        --color-text-faint: #e11d48;    /* Rose 600 */
+
+        /* Subtle Glass Borders */
+        --color-border-light: rgba(255, 255, 255, 0.8);
+        --color-border-med: rgba(251, 113, 133, 0.3);
+
+        /* Brand Colors: Rose Gold Spectrum */
+        --color-brand-50: rgba(255, 228, 230, 0.5);
+        --color-brand-100: #ffe4e6;
+        --color-brand-200: #fecdd3;
+        --color-brand-300: #fda4af;
+        --color-brand-500: #e11d48;
+        --color-brand-600: #be123c;     /* Primary Action */
+        --color-brand-700: #9f1239;
+        --color-brand-900: #881337;
+
+        /* Metallic Gold Accents */
+        --color-gold-400: #fbbf24;
+        --color-gold-500: #b45309;      /* Bronze/Gold */
+        --color-gold-600: #78350f;
+
+        --shadow-color: 190 18 60;      /* Rose shadow */
+      }
+      
+      /* ROSE THEME SPECIFIC RULES */
+      body[data-theme="rose"] {
+          /* Warm Luxury Gradient Background */
+          background: radial-gradient(circle at 0% 0%, #fff1f2 0%, #ffe4e6 40%, #fecdd3 100%) !important;
+          background-attachment: fixed !important;
+          background-size: cover !important;
+      }
+
+      /* Apply Glass Effect to Cards and Panels in Rose Theme */
+      [data-theme="rose"] .bg-white,
+      [data-theme="rose"] .bg-slate-50,
+      [data-theme="rose"] .bg-slate-100 {
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          border: 1px solid rgba(255, 255, 255, 0.5);
+          box-shadow: 0 8px 32px 0 rgba(136, 19, 55, 0.05);
+      }
+      
+      [data-theme="rose"] .bg-white:hover {
+         background-color: rgba(255, 255, 255, 0.75);
+         border-color: rgba(255, 255, 255, 0.9);
+         box-shadow: 0 8px 32px 0 rgba(136, 19, 55, 0.1);
+      }
+
+      /* Input Glass Style */
+      [data-theme="rose"] input, 
+      [data-theme="rose"] select, 
+      [data-theme="rose"] textarea {
+         background-color: rgba(255, 255, 255, 0.5);
+         border-color: rgba(190, 18, 60, 0.15);
+      }
+      [data-theme="rose"] input:focus, 
+      [data-theme="rose"] select:focus, 
+      [data-theme="rose"] textarea:focus {
+         background-color: rgba(255, 255, 255, 0.8);
+         border-color: var(--color-brand-500);
+         box-shadow: 0 0 0 2px rgba(225, 29, 72, 0.2);
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--color-bg-base); 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--color-border-med); 
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--color-text-muted); 
+      }
+      
+      body {
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      
+      /* Matrix Glow Effects */
+      [data-theme="matrix"] .shadow-lg,
+      [data-theme="matrix"] .shadow-xl {
+         box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+         border: 1px solid var(--color-brand-900);
+      }
+    </style>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['var(--font-main)'],
+            },
+            colors: {
+              white: 'var(--color-bg-card)',
+              slate: {
+                50: 'var(--color-bg-base)',
+                100: 'var(--color-bg-sub)',
+                200: 'var(--color-border-light)',
+                300: 'var(--color-border-med)',
+                400: 'var(--color-text-faint)',
+                500: 'var(--color-text-muted)',
+                600: 'var(--color-text-body)', // Tweaked mapping for readability
+                700: 'var(--color-text-body)',
+                800: 'var(--color-text-strong)',
+                900: 'var(--color-text-main)',
+              },
+              brand: {
+                50: 'var(--color-brand-50)',
+                100: 'var(--color-brand-100)',
+                200: 'var(--color-brand-200)',
+                300: 'var(--color-brand-300)',
+                500: 'var(--color-brand-500)',
+                600: 'var(--color-brand-600)',
+                700: 'var(--color-brand-700)',
+                900: 'var(--color-brand-900)',
+              },
+              gold: {
+                400: 'var(--color-gold-400)',
+                500: 'var(--color-gold-500)',
+                600: 'var(--color-gold-600)',
+              }
+            }
+          }
+        }
+      }
+    </script>
+<script type="importmap">
+{
+  "imports": {
+    "lucide-react": "https://esm.sh/lucide-react@0.344.0?external=react",
+    "react": "https://esm.sh/react@18.3.1",
+    "react/": "https://esm.sh/react@18.3.1/",
+    "react-dom": "https://esm.sh/react-dom@18.3.1?external=react",
+    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client?external=react",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3?external=react,react-dom",
+    "recharts": "https://esm.sh/recharts@2.12.3?external=react,react-dom",
+    "@google/genai": "https://esm.sh/@google/genai",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased overflow-hidden">
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>

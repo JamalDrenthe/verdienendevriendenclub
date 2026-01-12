@@ -1,0 +1,8 @@
+{
+  "name": "Verdienende Vrienden Club (VVC)",
+  "description": "A gamified professional work platform where users complete missions to earn levels, collaborate in teams, and track their professional progress.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
